@@ -1,0 +1,21 @@
+.page {
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   flex-direction: column;
+}
+
+.container {
+   display: flex;
+   flex: 1;
+}
+
+.sidenav {
+    width: 200px;
+    text-align: center;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+}

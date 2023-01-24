@@ -1,3 +1,19 @@
-<h1>Strona</h1>
-<p>Hello World!</p>
-<router-outlet></router-outlet>
+<div class="page">
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>Aplikcja do zarządzania budżetem domowym</span>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="container">
+        <mat-sidenav mode="side" opened class="sidenav">
+            <mat-nav-list>
+                <a mat-list-item class="button" routerLink="/dashboard">Wydatki i wpływy</a>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content class="content">
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>
