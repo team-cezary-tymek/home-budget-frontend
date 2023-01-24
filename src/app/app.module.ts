@@ -14,6 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -21,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         AppComponent,
         ExpensesTableComponent,
         IncomesTableComponent,
+        DashboardComponent,
     ],
     imports: [
         BrowserModule,
@@ -34,8 +38,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatInputModule,
         FormsModule,
         ReactiveFormsModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+        AppRoutingModule,
+        RouterModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
