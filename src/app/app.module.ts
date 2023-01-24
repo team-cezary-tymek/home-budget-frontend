@@ -8,20 +8,32 @@ import { ExpensesTableComponent } from './expenses-table/expenses-table.componen
 import { MatTableModule } from '@angular/material/table';
 import { IncomesTableComponent } from './incomes-table/incomes-table.component';
 import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ExpensesTableComponent,
-    IncomesTableComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule, 
-    MatSlideToggleModule, 
-    MatTableModule,
-    MatSortModule,
+    declarations: [
+        AppComponent,
+        ExpensesTableComponent,
+        IncomesTableComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatSlideToggleModule,
+        MatTableModule,
+        MatSortModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
