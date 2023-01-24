@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'home-budget';
+    showSidenav: boolean = true;
+
+    onToggle(): void {
+        this.showSidenav = !this.showSidenav;
+    }
 }
