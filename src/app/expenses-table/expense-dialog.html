@@ -1,26 +1,30 @@
 <div class="dialog">
-    <h1 mat-dialog-title>Change {{data.name}} expense</h1>
+    <h1 mat-dialog-title>Change {{data.row.name}} expense</h1>
     <div mat-dialog-content class="form">
         <mat-form-field class="field" appearance="fill">
             <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="data.name">
+            <input matInput [(ngModel)]="data.row.name">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Category</mat-label>
-            <input matInput [(ngModel)]="data.category">
+            <input matInput [(ngModel)]="data.row.category">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Value</mat-label>
-            <input matInput [(ngModel)]="data.value">
+            <input matInput [(ngModel)]="data.row.value">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Date</mat-label>
-            <input matInput [(ngModel)]="data.date" [matDatepicker]="picker">
+<<<<<<< Updated upstream
+            <input matInput [(ngModel)]="data.row.date" [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+=======
+            <input matInput [(ngModel)]="data.row.date">
+>>>>>>> Stashed changes
         </mat-form-field>
         <div mat-dialog-actions>
-            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
+            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>{{ buttonText }}</button>
         </div>
     </div>
 </div>

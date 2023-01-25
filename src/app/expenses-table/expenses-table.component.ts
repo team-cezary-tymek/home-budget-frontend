@@ -13,10 +13,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 export interface DialogData {
-    name: string;
-    category: string;
-    value: number;
-    date: Date;
+    row: {name: string;
+        category: string;
+        value: number;
+        date: Date;}
+    save: any;
 }
 
 @Component({
@@ -27,6 +28,8 @@ export interface DialogData {
 export class ExpensesTableComponent {
     displayedColumns: string[] = ['id', 'name', 'category', 'value', 'date', 'edit'];
     expenses = new MatTableDataSource(EXPENSES);
+    buttonText = 'Save';
+
     constructor(private _liveAnnouncer: LiveAnnouncer,
         public dialog: MatDialog) { }
     @ViewChild(MatSort)
@@ -35,7 +38,7 @@ export class ExpensesTableComponent {
     category?: string;
     value?: number;
     date?: Date;
-
+    save = true;
     ngAfterViewInit() {
         this.expenses.sort = this.sort;
     }
@@ -49,9 +52,16 @@ export class ExpensesTableComponent {
     }
 
     openDialog(row: any): void {
+        if (row == 0) {
+            this.save = false;
+        }
+        else {
+            this.save = true;
+        }
         const dialogRef = this.dialog.open(ExpenseDialog, {
-            data: row,
-        });
+            data: {row: row, save: this.save},
+        }
+        );
 
         dialogRef.afterClosed().subscribe(result => {
             this.name = result;
@@ -70,13 +80,28 @@ export class ExpensesTableComponent {
     }]
 })
 export class ExpenseDialog {
+    buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<ExpenseDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    ) { }
+    ) { 
+        if (data.save == false) {
+            this.buttonText = "Add";
+        }
+        else {
+            this.buttonText = "Save";
+        }
+    }
+
 
     onNoClick(): void {
         this.dialogRef.close();
+        if (this.data.save == false) {
+            this.buttonText = "Add";
+        }
+        else {
+            this.buttonText = "Save";
+        }
     }
 }
 

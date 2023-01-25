@@ -1,3 +1,7 @@
+<h1>Incomes</h1>
+<button mat-raised-button color="primary" (click)="openDialog(0)">Add expense</button>
+<br>
+
 <table mat-table [dataSource]="incomes" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
     <!-- Position Column -->
   <ng-container matColumnDef="id">

@@ -1,4 +1,5 @@
 <div class="dialog">
+<<<<<<< Updated upstream
     <h1 mat-dialog-title>Change {{data.name}} income</h1>
     <div mat-dialog-content class="form">
         <mat-form-field class="field" appearance="fill">
@@ -18,5 +19,23 @@
         <div mat-dialog-actions>
             <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
         </div>
+=======
+  <h1 mat-dialog-title>Change {{data.row.name}} income</h1>
+  <div mat-dialog-content class="form">
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="data.row.name">
+    </mat-form-field>
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Value</mat-label>
+      <input matInput [(ngModel)]="data.row.value">
+    </mat-form-field>
+    <mat-form-field class="field" appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [(ngModel)]="data.row.date">
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-raised-button [mat-dialog-close] cdkFocusInitial>{{buttonText}}</button>
+>>>>>>> Stashed changes
     </div>
 </div>
