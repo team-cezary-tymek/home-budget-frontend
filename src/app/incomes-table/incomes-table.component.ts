@@ -13,16 +13,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 export interface DialogData {
-<<<<<<< Updated upstream
-    name: string;
-    value: number;
-    date: Date;
-=======
   row: {name: string;
     value: number;
     date: Date;}
   save: any;
->>>>>>> Stashed changes
 }
 
 @Component({
@@ -31,20 +25,12 @@ export interface DialogData {
     styleUrls: ['./incomes-table.component.scss']
 })
 export class IncomesTableComponent {
-<<<<<<< Updated upstream
     displayedColumns: string[] = ['id', 'name', 'value', 'date', 'edit'];
     incomes = new MatTableDataSource(INCOMES);
     name?: string;
     value?: number;
     date?: Date;
-=======
-  displayedColumns: string[] = ['id', 'name', 'value', 'date', 'edit'];
-  incomes = new MatTableDataSource(INCOMES);
-  name?: string;
-  value?: number;
-  date?: Date;
-  save = true;
->>>>>>> Stashed changes
+    save = true;
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
         public dialog: MatDialog) {
@@ -65,23 +51,16 @@ export class IncomesTableComponent {
         }
     }
 
-<<<<<<< Updated upstream
     openDialog(row: any): void {
+        if (row == 0) {
+            this.save = false;
+        }
+        else {
+            this.save = true;
+        }
         const dialogRef = this.dialog.open(IncomeDialog, {
-            data: row,
+            data: { row: row, save: this.save }
         });
-=======
-  openDialog(row: any): void {
-    if (row == 0) {
-      this.save = false;
-    }
-    else {
-      this.save = true;
-    }
-    const dialogRef = this.dialog.open(IncomeDialog, {
-      data: {row: row, save: this.save}
-    });
->>>>>>> Stashed changes
 
         dialogRef.afterClosed().subscribe(result => {
             this.name = result;
@@ -98,22 +77,15 @@ export class IncomesTableComponent {
     providers: [MatDatepickerModule, MatNativeDateModule]
 })
 export class IncomeDialog {
-<<<<<<< Updated upstream
+    buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<IncomeDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    ) { }
-=======
-  buttonText = "Save";
-  constructor(
-    public dialogRef: MatDialogRef<IncomeDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {
-    if (data.save == false) {
-      this.buttonText = "Add";
-  }
-  }
->>>>>>> Stashed changes
+    ) {
+        if (data.save == false) {
+            this.buttonText = "Add";
+        }
+    }
 
     onNoClick(): void {
         this.dialogRef.close();
