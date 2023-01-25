@@ -1,26 +1,24 @@
-<h1 mat-dialog-title>Change {{data.name}} expense</h1>
-<div mat-dialog-content>
-  <p>Name</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.name">
-  </mat-form-field>
-  <p>Category</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Category</mat-label>
-    <input matInput [(ngModel)]="data.category">
-  </mat-form-field>
-  <p>Value</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Value</mat-label>
-    <input matInput [(ngModel)]="data.value">
-  </mat-form-field>
-  <p>Date</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Date</mat-label>
-    <input matInput [(ngModel)]="data.date">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
+<div class="dialog">
+    <h1 mat-dialog-title>Change {{data.name}} expense</h1>
+    <div mat-dialog-content class="form">
+        <mat-form-field class="field" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="data.name">
+        </mat-form-field>
+        <mat-form-field class="field" appearance="fill">
+            <mat-label>Category</mat-label>
+            <input matInput [(ngModel)]="data.category">
+        </mat-form-field>
+        <mat-form-field class="field" appearance="fill">
+            <mat-label>Value</mat-label>
+            <input matInput [(ngModel)]="data.value">
+        </mat-form-field>
+        <mat-form-field class="field" appearance="fill">
+            <mat-label>Date</mat-label>
+            <input matInput [(ngModel)]="data.date">
+        </mat-form-field>
+        <div mat-dialog-actions>
+            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
+        </div>
+    </div>
 </div>
