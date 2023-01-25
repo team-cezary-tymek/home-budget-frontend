@@ -23,7 +23,7 @@ export interface DialogData {
     styleUrls: ['./expenses-table.component.scss']
 })
 export class ExpensesTableComponent {
-    displayedColumns: string[] = ['id', 'name', 'value', 'date', 'edit'];
+    displayedColumns: string[] = ['id', 'name', 'category', 'value', 'date', 'edit'];
     expenses = new MatTableDataSource(EXPENSES);
     constructor(private _liveAnnouncer: LiveAnnouncer,
         public dialog: MatDialog) { }
@@ -46,9 +46,9 @@ export class ExpensesTableComponent {
         }
     }
 
-    openDialog(): void {
+    openDialog(row: any): void {
         const dialogRef = this.dialog.open(ExpenseDialog, {
-            data: { name: this.name, category: this.category, value: this.value, date: this.date },
+            data: row,
         });
 
         dialogRef.afterClosed().subscribe(result => {

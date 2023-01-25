@@ -21,6 +21,9 @@ import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 @NgModule({
     declarations: [
@@ -28,6 +31,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         ExpensesTableComponent,
         IncomesTableComponent,
         DashboardComponent,
+        BarChartComponent,
+        PieChartComponent,
     ],
     imports: [
         BrowserModule,
@@ -47,6 +52,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         ReactiveFormsModule,
         AppRoutingModule,
         RouterModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts')
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -7,6 +7,7 @@ import {MatDialog, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef} from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 
 export interface DialogData {
@@ -45,9 +46,9 @@ export class IncomesTableComponent {
     }
   }
 
-  openDialog(): void {
+  openDialog(row: any): void {
     const dialogRef = this.dialog.open(IncomeDialog, {
-      data: {name: this.name, value: this.value, date: this.date},
+      data: row,
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -59,8 +60,9 @@ export class IncomesTableComponent {
 @Component({
   selector: 'income-dialog',
   templateUrl: 'income-dialog.html',
+  styleUrls: ['./income-dialog.component.scss'],
   standalone: true,
-  imports: [MatFormFieldModule, FormsModule, MatButtonModule, MatDialogModule],
+  imports: [MatFormFieldModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule],
 })
 export class IncomeDialog {
   constructor(
