@@ -2,3 +2,11 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-form-field-appearance-fill:not(.mat-focused) .mat-form-field-label {
+  margin-top: 0;
+}
+
+.mat-form-field-appearance-outline:not(.mat-focused) .mat-form-field-label {
+  margin-top: 0.25em;
+}
