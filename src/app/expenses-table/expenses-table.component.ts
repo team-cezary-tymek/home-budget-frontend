@@ -8,7 +8,9 @@ import { MatDialog, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angu
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 export interface DialogData {
     name: string;
@@ -62,7 +64,10 @@ export class ExpensesTableComponent {
     templateUrl: 'expense-dialog.html',
     styleUrls: ['./expense-dialog.component.scss'],
     standalone: true,
-    imports: [MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    providers: [MatDatepickerModule, MatNativeDateModule, {
+        provide: MAT_DATE_LOCALE, useValue: 'en-GB'
+    }]
 })
 export class ExpenseDialog {
     constructor(

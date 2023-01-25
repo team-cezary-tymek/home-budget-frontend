@@ -15,7 +15,9 @@
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Date</mat-label>
-            <input matInput [(ngModel)]="data.date">
+            <input matInput [(ngModel)]="data.date" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div mat-dialog-actions>
             <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
