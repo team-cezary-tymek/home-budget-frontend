@@ -27,6 +27,7 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
 import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         MatSlideToggleModule,
         MatToolbarModule,
         MatTableModule,
@@ -63,7 +65,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
             echarts: () => import('echarts')
         })
     ],
-    providers: [MatDatepickerModule, MatNativeDateModule, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
+    providers: [MatDatepickerModule, MatNativeDateModule, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

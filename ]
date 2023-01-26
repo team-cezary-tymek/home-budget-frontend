@@ -4,7 +4,6 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { AfterViewInit, Component, ViewChild, Inject } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTable } from '@angular/material/table';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,40 +31,18 @@ export interface DialogData {
 })
 export class ExpensesTableComponent {
 
-    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-    expenses_data: Expense[];
+    expenses_data: Expense[] = [];
 
     ngOnInit(): void {
         this.getExpenses();
     }
 
-    processExpense(expense: any): Expense {
-        return {
-            id: expense.id,
-            name: expense.name,
-            category: expense.category.name,
-            value: expense.value,
-            date: new Date(expense.date),
-            created_at: new Date(expense.created_at),
-            updated_at: new Date(expense.updated_at),
-        };
-    }
-
-    expenses: any;
-
     getExpenses(): void {
         this.expenseService.getExpenses()
-            .subscribe(expenses => {
-                this.expenses_data = expenses;
-                this.expenses = new MatTableDataSource(this.expenses_data.map((expense) => this.processExpense(expense)));
-                this.expenses.sort = this.sort;
-            }
-            );
-        /* expenses.map((expense) => this.processExpense(expense)) */
-        console.log(this.expenses);
+            .subscribe(expenses => this.expenses_data = expenses);
     }
-
     displayedColumns: string[] = ['id', 'name', 'category', 'value', 'date', 'edit'];
+    expenses = new MatTableDataSource(this.expenses_data);
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
@@ -78,6 +55,7 @@ export class ExpensesTableComponent {
     date?: Date;
     save = true;
     ngAfterViewInit() {
+        this.expenses.sort = this.sort;
     }
 
     announceSortChange(sortState: Sort) {
