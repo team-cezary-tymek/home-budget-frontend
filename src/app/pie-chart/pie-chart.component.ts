@@ -3,6 +3,8 @@ import { EXPENSES } from '../expense_data';
 import { FormsModule, NgModel } from '@angular/forms';
 import { ECharts, EChartsOption } from 'echarts';
 import * as echarts from 'echarts';
+import { Expense } from '../expense';
+import { ExpenseService } from '../expense.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -12,7 +14,7 @@ import * as echarts from 'echarts';
 
 export class PieChartComponent implements OnInit {
   @ViewChild('chart') chart: any;
-  expenses = EXPENSES;
+  expenses: Expense[];
   pieChartOptions: any = {};
   pieChartData: any[] = [];
   pieChartLoading = true;
@@ -21,15 +23,22 @@ export class PieChartComponent implements OnInit {
   chartData: any;
   text = '';
   chartRef: ElementRef;
-  constructor(chartRef: ElementRef) {
+  constructor(chartRef: ElementRef, private expenseService: ExpenseService) {
     this.chartRef = chartRef;
   }
-  ngOnInit() {
+  ngOnInit(): void {
     
     console.log(this.chart)
     const expensesByCategory = new Map();
-    for (const expense of EXPENSES) {
-      const category = expense.category;
+    this.expenseService.getExpenses().subscribe(expenses => {
+      this.expenses = expenses;
+      for (const expense of this.expenses) {
+      const categoryObj = JSON.parse(JSON.stringify(expense.category));
+      // const startIndex = categoryObj.indexOf("name") + 8;
+      // const endIndex = categoryObj.indexOf("'", startIndex);
+      // const category = categoryObj.substring(startIndex, endIndex);
+      const category = categoryObj.name;
+      console.log(category);
       if (!expensesByCategory.has(category)) {
         expensesByCategory.set(category, {
           category,
@@ -38,25 +47,9 @@ export class PieChartComponent implements OnInit {
       }
       expensesByCategory.get(category).value += expense.value;
     }
-    const chartData = Array.from(expensesByCategory.values()) 
-
-    this.pieChartData = EXPENSES.map((expense) => {
-      return {
-        value: expense.value,
-        name: expense.category
-      }
-    });
-    this.availableMonthsAndYears = Array.from(new Set(EXPENSES.map(expense => {
-      const date = new Date(expense.date);
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      return `${year}.${(month+1).toString().padStart(2, '0')}`;
-    })));
-    console.log(this.pieChartData);
-    console.log(this.availableMonthsAndYears);
-
-    this.selectedMonthAndYear = '';
-
+    const chartData = [...expensesByCategory.values()]
+    console.log("Chartdata");
+    console.log(chartData);
     this.pieChartOptions = {
       tooltip: {
         trigger: 'item',
@@ -95,42 +88,6 @@ export class PieChartComponent implements OnInit {
         }
       ]
     };
-    this.pieChartLoading = false;
+    })
   }
-
-  updateChartData() {
-    const accumulatedValues = new Map;
-    this.pieChartData = this.expenses.filter(d => {
-        if (!this.selectedMonthAndYear) {
-          return true;
-        }
-        const date = new Date(d.date);
-        const year = date.getFullYear();
-        const month = date.getMonth();
-        const monthAndYear = `${year}.${(month+1).toString().padStart(2, '0')}`;
-        return monthAndYear === this.selectedMonthAndYear;
-      })
-      .map(d => {
-        if (!accumulatedValues.has(d.category)) {
-          accumulatedValues.set(d.category, 0);
-        }
-        accumulatedValues.set(d.category, accumulatedValues.get(d.category) + d.value);
-      ;
-        return {
-          name: d.category,
-          value: accumulatedValues.get(d.category)
-        }
-      });
-      this.text = 'aaaa';
-      console.log(this.chart);
-      console.log(this.pieChartData);
-      this.pieChartOptions.series[0].data = this.pieChartData;
-      this.pieChartLoading = false;
-      //this.chart.setOption(this.pieChartOptions);
-      this.chartData = this.pieChartData;
-      this.pieChartLoading = false;
-      console.log(this.pieChartOptions.series[0].data);
-      this.chart.setOption(this.pieChartOptions, true);
-  }
-  
 }
