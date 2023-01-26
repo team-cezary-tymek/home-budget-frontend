@@ -14,6 +14,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CategoryService } from '../category.service';
 import { Observable, of } from 'rxjs';
 import { ExpenseService } from '../expense.service';
+import { RefetchService } from '../refetch.service';
 
 export interface DialogData {
     row: {
@@ -64,6 +65,7 @@ export class CategoryTableComponent {
     delete(data: any): void {
         this.categoryService.deleteCategory(data)
             .subscribe(() => {
+                this.refetchService.refetch();
                 this.getCategories();
             })
     }
@@ -72,7 +74,7 @@ export class CategoryTableComponent {
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
-        public dialog: MatDialog, private categoryService: CategoryService) { }
+        public dialog: MatDialog, private categoryService: CategoryService, private refetchService: RefetchService) { }
     @ViewChild(MatSort)
     sort!: MatSort;
     name?: string;

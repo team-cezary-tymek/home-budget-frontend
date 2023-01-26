@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { CategoryService } from '../category.service';
 import { CommonModule } from '@angular/common';
 import { CategoryScale } from 'chart.js';
+import { RefetchService } from '../refetch.service';
 
 export interface DialogData {
     row: {
@@ -93,7 +94,11 @@ export class ExpensesTableComponent {
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
-        public dialog: MatDialog, private expenseService: ExpenseService) { }
+        public dialog: MatDialog, private expenseService: ExpenseService, private refetchService: RefetchService) {
+            this.refetchService.refetch$.subscribe(() => {
+                this.getExpenses();
+            })
+         }
     @ViewChild(MatSort)
     sort!: MatSort;
     name?: string;
