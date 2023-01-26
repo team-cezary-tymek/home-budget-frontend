@@ -23,6 +23,13 @@ export class IncomeService {
     return this.http.get<any>(this.incomesUrl)
 }
 
+createIncome(data: any): Observable<any> {
+  return this.http.post(this.incomesUrl, data, this.httpOptions).pipe(
+    tap(_ => console.log("create")),
+    catchError(this.handleError<any>('createIncome'))
+  )
+}
+
 updateIncome(data: any): Observable<any> {
   return this.http.put(`${this.incomesUrl}/${data.id}`, data, this.httpOptions).pipe(
       tap(_ => console.log("update")),

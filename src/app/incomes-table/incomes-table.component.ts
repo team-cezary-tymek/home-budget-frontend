@@ -65,7 +65,7 @@ export class IncomesTableComponent {
                 this.incomes.sort = this.sort;
             }
             );
-        /* expenses.map((expense) => this.processExpense(expense)) */
+        
         console.log(this.incomes);
     }
 
@@ -169,15 +169,27 @@ export class IncomeDialog {
     }]
 })
 export class IncomeAddDialog {
+    @Output() refetch: EventEmitter<any> = new EventEmitter();
+    updated = {
+        name: "",
+        value: 0,
+        date: new Date("")
+    }
     buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<IncomeDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private incomeService: IncomeService,
     ) {
     }
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    create() {
+        this.incomeService.createIncome(this.updated)
+            .subscribe(() => this.refetch.emit())
     }
 }
 
