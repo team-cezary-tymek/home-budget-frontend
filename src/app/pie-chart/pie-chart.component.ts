@@ -12,6 +12,18 @@ export class PieChartComponent implements OnInit {
   pieChartData: any[] = [];
   pieChartLoading = true;
   ngOnInit() {
+    const expensesByCategory = new Map();
+    for (const expense of EXPENSES) {
+      const category = expense.category;
+      if (!expensesByCategory.has(category)) {
+        expensesByCategory.set(category, {
+          category,
+          value: 0
+        });
+      }
+      expensesByCategory.get(category).value += expense.value;
+    }
+    const chartData = Array.from(expensesByCategory.values()) 
     this.pieChartData = EXPENSES.map((expense) => {
       return {
         value: expense.value,
@@ -47,7 +59,12 @@ export class PieChartComponent implements OnInit {
           labelLine: {
             show: false
           },
-          data: this.pieChartData
+          data: chartData.map(d => {
+            return {
+              name: d.category,
+              value: d.value
+            }
+          })
         }
       ]
     };
