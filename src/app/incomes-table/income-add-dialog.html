@@ -1,22 +1,22 @@
 <div class="dialog">
-    <h1 mat-dialog-title>Change {{data.row.name}} income</h1>
+    <h1 mat-dialog-title>Add income</h1>
     <div mat-dialog-content class="form">
         <mat-form-field class="field" appearance="fill">
             <mat-label>Name</mat-label>
-            <input matInput [value]="data.row.name">
+            <input matInput [value]="">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Value</mat-label>
-            <input matInput [value]="data.row.value">
+            <input matInput [value]="">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="picker" [value]="data.row.date">
+            <input matInput [matDatepicker]="picker" [value]="">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div mat-dialog-actions>
-            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
+            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Add</button>
         </div>
     </div>
 </div>

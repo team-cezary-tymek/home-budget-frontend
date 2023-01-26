@@ -66,6 +66,16 @@ export class IncomesTableComponent {
             this.name = result;
         });
     }
+
+    openDialog2(): void {
+        const dialogRef = this.dialog.open(IncomeAddDialog, {
+            data: {}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.name = result;
+        });
+    }
 }
 
 @Component({
@@ -85,6 +95,27 @@ export class IncomeDialog {
         if (data.save == false) {
             this.buttonText = "Add";
         }
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
+}
+
+@Component({
+    selector: 'income-add-dialog',
+    templateUrl: 'income-add-dialog.html',
+    styleUrls: ['./income-dialog.component.scss'],
+    standalone: true,
+    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatButtonModule, MatDialogModule, MatInputModule],
+    providers: [MatDatepickerModule, MatNativeDateModule]
+})
+export class IncomeAddDialog {
+    buttonText = "Save";
+    constructor(
+        public dialogRef: MatDialogRef<IncomeDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    ) {
     }
 
     onNoClick(): void {

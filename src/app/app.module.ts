@@ -30,6 +30,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatSelectModule } from '@angular/material/select';
+import { CategoryTableComponent } from './category-table/category-table.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +41,7 @@ import { MatSelectModule } from '@angular/material/select';
         BarChartComponent,
         PieChartComponent,
         StatisticsComponent,
+        CategoryTableComponent,
     ],
     imports: [
         BrowserModule,
