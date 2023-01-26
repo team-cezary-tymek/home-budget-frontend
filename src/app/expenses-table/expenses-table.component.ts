@@ -104,6 +104,17 @@ export class ExpensesTableComponent {
             this.name = result;
         });
     }
+    openDialog2(): void {
+        const dialogRef = this.dialog.open(ExpenseAddDialog, {
+            data: {},
+        }
+        );
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.name = result;
+        });
+    }
+
 }
 
 @Component({
@@ -139,6 +150,29 @@ export class ExpenseDialog {
         else {
             this.buttonText = "Save";
         }
+    }
+}
+
+@Component({
+    selector: 'expense-add-dialog',
+    templateUrl: 'expense-add-dialog.html',
+    styleUrls: ['./expense-dialog.component.scss'],
+    standalone: true,
+    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    providers: [MatDatepickerModule, MatNativeDateModule, {
+        provide: MAT_DATE_LOCALE, useValue: 'en-GB'
+    }]
+})
+export class ExpenseAddDialog {
+    buttonText = "Save";
+    constructor(
+        public dialogRef: MatDialogRef<ExpenseDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    ) {
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 }
 
