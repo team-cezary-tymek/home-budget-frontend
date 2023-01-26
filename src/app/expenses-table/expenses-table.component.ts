@@ -19,7 +19,6 @@ import { InputDecorator } from '@angular/core';
 import { OutputDecorator } from '@angular/core';
 import { Output } from '@angular/core';
 import { Input } from '@angular/core';
-import { CommunicationService } from '../communication.service';
 
 export interface DialogData {
     row: {
@@ -82,7 +81,7 @@ export class ExpensesTableComponent {
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
-        public dialog: MatDialog, private expenseService: ExpenseService, communicationService: CommunicationService) { }
+        public dialog: MatDialog, private expenseService: ExpenseService) { }
     @ViewChild(MatSort)
     sort!: MatSort;
     name?: string;
