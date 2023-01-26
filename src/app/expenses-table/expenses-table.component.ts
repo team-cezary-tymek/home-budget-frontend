@@ -14,6 +14,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { ExpenseService } from '../expense.service';
 import { Observable, of } from 'rxjs';
+import { EventEmitter } from '@angular/core';
+import { InputDecorator } from '@angular/core';
+import { OutputDecorator } from '@angular/core';
+import { Output } from '@angular/core';
+import { Input } from '@angular/core';
+import { CommunicationService } from '../communication.service';
 
 export interface DialogData {
     row: {
@@ -31,6 +37,13 @@ export interface DialogData {
     styleUrls: ['./expenses-table.component.scss']
 })
 export class ExpensesTableComponent {
+    @Input()
+    set refetch(event: any) {
+        if (event) {
+            console.log("hello!")
+            this.getExpenses();
+        }
+    }
 
     @ViewChild(MatTable, { static: false }) table: MatTable<any>;
     expenses_data: Expense[];
@@ -69,7 +82,7 @@ export class ExpensesTableComponent {
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
-        public dialog: MatDialog, private expenseService: ExpenseService) { }
+        public dialog: MatDialog, private expenseService: ExpenseService, communicationService: CommunicationService) { }
     @ViewChild(MatSort)
     sort!: MatSort;
     name?: string;
@@ -127,29 +140,33 @@ export class ExpensesTableComponent {
         provide: MAT_DATE_LOCALE, useValue: 'en-GB'
     }]
 })
+
 export class ExpenseDialog {
+    @Output() refetch: EventEmitter<any> = new EventEmitter();
+    updated = {
+        name: "",
+        value: 0,
+        date: new Date(""),
+        category: ""
+    };
+
     buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<ExpenseDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private expenseService: ExpenseService,
     ) {
-        if (data.save == false) {
-            this.buttonText = "Add";
-        }
-        else {
-            this.buttonText = "Save";
-        }
+        this.updated = { ...data.row }
     }
 
 
     onNoClick(): void {
         this.dialogRef.close();
-        if (this.data.save == false) {
-            this.buttonText = "Add";
-        }
-        else {
-            this.buttonText = "Save";
-        }
+    }
+
+    update(start_data: any) {
+        this.expenseService.updateExpense(this.updated)
+            .subscribe(() => this.refetch.emit())
     }
 }
 

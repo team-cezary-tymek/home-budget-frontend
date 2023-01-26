@@ -3,24 +3,24 @@
     <div mat-dialog-content class="form">
         <mat-form-field class="field" appearance="fill">
             <mat-label>Name</mat-label>
-            <input matInput [value]="data.row.name">
+            <input matInput [value]="data.row.name" [(ngModel)]="updated.name">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Category</mat-label>
-            <input matInput [(value]="data.row.category">
+            <input matInput [value]="data.row.category" [(ngModel)]="updated.category">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Value</mat-label>
-            <input matInput [value]="data.row.value">
+            <input matInput [value]="data.row.value" [(ngModel)]="updated.value">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Date</mat-label>
-            <input matInput [value]="data.row.date" [matDatepicker]="picker">
+            <input matInput [value]="data.row.date" [matDatepicker]="picker" [(ngModel)]="updated.date">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div mat-dialog-actions>
-            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
+            <button (click)="update(data.row)" mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
         </div>
     </div>
 </div>
