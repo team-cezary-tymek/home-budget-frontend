@@ -3,14 +3,14 @@
     <div mat-dialog-content class="form">
         <mat-form-field class="field" appearance="fill">
             <mat-label>Name</mat-label>
-            <input matInput [value]="data.row.name">
+            <input matInput [value]="data.row.name" [(ngModel)]="updated.name">
         </mat-form-field>
         <mat-form-field class="field" appearance="fill">
             <mat-label>Description</mat-label>
-            <input matInput [value]="data.row.description">
+            <textarea matInput [value]="data.row.description" [(ngModel)]="updated.description"></textarea>
         </mat-form-field>
         <div mat-dialog-actions>
-            <button mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
+            <button (click)="modify()" click mat-raised-button [mat-dialog-close] cdkFocusInitial>Save</button>
         </div>
     </div>
 </div>

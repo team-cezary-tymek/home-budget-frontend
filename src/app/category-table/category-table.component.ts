@@ -15,143 +15,173 @@ import { CategoryService } from '../category.service';
 import { Observable, of } from 'rxjs';
 
 export interface DialogData {
-  row: {
-      name: string;
-      description: string;
-  }
-  save: any;
+    row: {
+        name: string;
+        description: string;
+    }
+    save: any;
 }
 
 @Component({
-  selector: 'app-category-table',
-  templateUrl: './category-table.component.html',
-  styleUrls: ['./category-table.component.scss']
+    selector: 'app-category-table',
+    templateUrl: './category-table.component.html',
+    styleUrls: ['./category-table.component.scss']
 })
 export class CategoryTableComponent {
 
-  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
-  categories_data: Category[];
+    @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+    categories_data: Category[];
 
-  ngOnInit(): void {
-      this.getCategories();
-  }
-
-  processCategory(category: any): Category {
-      return {
-          id: category.id,
-          name: category.name,
-          description: category.description,
-      };
-  }
-
-  categories: any;
-
-  getCategories(): void {
-      this.categoryService.getCategories()
-          .subscribe(categories => {
-              this.categories_data = categories;
-              this.categories = new MatTableDataSource(this.categories_data.map((category) => this.processCategory(category)));
-              this.categories.sort = this.sort;
-          }
-          );
-      /* expenses.map((expense) => this.processExpense(expense)) */
-      console.log(this.categories);
-  }
-
-  displayedColumns: string[] = ['id', 'name', 'description', 'edit'];
-  buttonText = 'Save';
-
-  constructor(private _liveAnnouncer: LiveAnnouncer,
-      public dialog: MatDialog, private categoryService: CategoryService) { }
-  @ViewChild(MatSort)
-  sort!: MatSort;
-  name?: string;
-  description?: string;
-  save = true;
-  ngAfterViewInit() {
-  }
-
-  announceSortChange(sortState: Sort) {
-      if (sortState.direction) {
-          this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-      } else {
-          this._liveAnnouncer.announce('Sorting cleared');
-      }
-  }
-
-  openDialog(row: any): void {
-      if (row == 0) {
-          this.save = false;
-      }
-      else {
-          this.save = true;
-      }
-      const dialogRef = this.dialog.open(CategoryDialog, {
-          data: { row: row, save: this.save },
-      }
-      );
-
-      dialogRef.afterClosed().subscribe(result => {
-          this.name = result;
-      });
-  }
-
-  openDialog2(): void {
-    
-    const dialogRef = this.dialog.open(CategoryAddDialog, {
-        data: {},
+    ngOnInit(): void {
+        this.getCategories();
     }
-    );
 
-    dialogRef.afterClosed().subscribe(result => {
-        this.name = result;
-    });
-}
+    processCategory(category: any): Category {
+        return {
+            id: category.id,
+            name: category.name,
+            description: category.description,
+        };
+    }
+
+    categories: any;
+
+    getCategories(): void {
+        this.categoryService.getCategories()
+            .subscribe(categories => {
+                this.categories_data = categories;
+                this.categories = new MatTableDataSource(this.categories_data.map((category) => this.processCategory(category)));
+                this.categories.sort = this.sort;
+            }
+            );
+        /* expenses.map((expense) => this.processExpense(expense)) */
+        console.log(this.categories);
+    }
+
+    displayedColumns: string[] = ['id', 'name', 'description', 'edit'];
+    buttonText = 'Save';
+
+    constructor(private _liveAnnouncer: LiveAnnouncer,
+        public dialog: MatDialog, private categoryService: CategoryService) { }
+    @ViewChild(MatSort)
+    sort!: MatSort;
+    name?: string;
+    description?: string;
+    save = true;
+    ngAfterViewInit() {
+    }
+
+    announceSortChange(sortState: Sort) {
+        if (sortState.direction) {
+            this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+        } else {
+            this._liveAnnouncer.announce('Sorting cleared');
+        }
+    }
+
+    openDialog(row: any): void {
+        if (row == 0) {
+            this.save = false;
+        }
+        else {
+            this.save = true;
+        }
+        const dialogRef = this.dialog.open(CategoryDialog, {
+            data: { row: row, save: this.save },
+        }
+        );
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.name = result;
+        });
+    }
+
+    openDialog2(): void {
+
+        const dialogRef = this.dialog.open(CategoryAddDialog, {
+            data: {},
+        }
+        );
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.name = result;
+        });
+    }
 }
 
 @Component({
-  selector: 'category-dialog',
-  templateUrl: 'category-dialog.html',
-  //styleUrls: ['./expense-dialog.component.scss'],
-  standalone: true,
-  imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
-  providers: [MatDatepickerModule, MatNativeDateModule, {
-      provide: MAT_DATE_LOCALE, useValue: 'en-GB'
-  }]
+    selector: 'category-dialog',
+    templateUrl: 'category-dialog.html',
+    styleUrls: ['./category-dialog.component.scss'],
+    //styleUrls: ['./expense-dialog.component.scss'],
+    standalone: true,
+    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    providers: [MatDatepickerModule, MatNativeDateModule, {
+        provide: MAT_DATE_LOCALE, useValue: 'en-GB'
+    }]
 })
 export class CategoryDialog {
-  buttonText = "Save";
-  constructor(
-      public dialogRef: MatDialogRef<CategoryDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {
-  }
+    buttonText = "Save";
+    updated: any = {
+        name: "",
+        description: "",
+    }
 
+    constructor(
+        public dialogRef: MatDialogRef<CategoryDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private categoryService: CategoryService,
+    ) {
+        this.updated = { ...data.row }
+    }
 
-  onNoClick(): void {
-      this.dialogRef.close();
-  }
+    modify() {
+        console.log(this.updated);
+        this.categoryService.updateCategory(this.updated)
+            .subscribe(() => {
+                console.log("Updated category!");
+            })
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 }
 
 @Component({
-  selector: 'category-add-dialog',
-  templateUrl: 'category-add-dialog.html',
-  //styleUrls: ['./expense-dialog.component.scss'],
-  standalone: true,
-  imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
-  providers: [MatDatepickerModule, MatNativeDateModule, {
-      provide: MAT_DATE_LOCALE, useValue: 'en-GB'
-  }]
+    selector: 'category-add-dialog',
+    templateUrl: 'category-add-dialog.html',
+    styleUrls: ['./category-dialog.component.scss'],
+    //styleUrls: ['./expense-dialog.component.scss'],
+    standalone: true,
+    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    providers: [MatDatepickerModule, MatNativeDateModule, {
+        provide: MAT_DATE_LOCALE, useValue: 'en-GB'
+    }]
 })
 export class CategoryAddDialog {
-  buttonText = "Save";
-  constructor(
-      public dialogRef: MatDialogRef<CategoryDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  ) {
-  }
+    buttonText = "Save";
+    updated: any = {
+        name: "",
+        description: "",
+    }
 
-  onNoClick(): void {
-      this.dialogRef.close();
-  }
+    constructor(
+        public dialogRef: MatDialogRef<CategoryDialog>,
+        @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private categoryService: CategoryService,
+    ) {
+    }
+
+    create() {
+        this.categoryService.createCategory(this.updated)
+            .subscribe(() => {
+                console.log("Created category!");
+            })
+    }
+
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 }
