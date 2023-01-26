@@ -182,15 +182,28 @@ export class ExpenseDialog {
     }]
 })
 export class ExpenseAddDialog {
+    @Output() refetch: EventEmitter<any> = new EventEmitter();
+    updated = {
+        name: "",
+        value: 0,
+        date: new Date(""),
+        category_id: 0,
+    };
     buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<ExpenseDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
+        private expenseService: ExpenseService,
     ) {
     }
 
     onNoClick(): void {
         this.dialogRef.close();
+    }
+
+    create() {
+        this.expenseService.createExpense(this.updated)
+            .subscribe(() => this.refetch.emit())
     }
 }
 

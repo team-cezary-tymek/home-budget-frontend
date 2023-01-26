@@ -23,6 +23,13 @@ export class ExpenseService {
         return this.http.get<any>(this.expensesUrl)
     }
 
+    createExpense(data: any): Observable<any> {
+        return this.http.post(this.expensesUrl, data, this.httpOptions).pipe(
+            tap(_ => console.log("create")),
+            catchError(this.handleError<any>('createExpense'))
+        )
+    }
+
     updateExpense(data: any): Observable<any> {
         return this.http.put(`${this.expensesUrl}/${data.id}`, data, this.httpOptions).pipe(
             tap(_ => console.log("update")),
