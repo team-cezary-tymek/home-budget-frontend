@@ -60,7 +60,14 @@ export class CategoryTableComponent {
         console.log(this.categories);
     }
 
-    displayedColumns: string[] = ['id', 'name', 'description', 'edit'];
+    delete(data: any): void {
+        this.categoryService.deleteCategory(data)
+            .subscribe(() => {
+                this.getCategories();
+            })
+    }
+
+    displayedColumns: string[] = ['id', 'name', 'description', 'edit', 'delete'];
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,
