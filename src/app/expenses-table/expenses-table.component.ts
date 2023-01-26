@@ -19,6 +19,11 @@ import { InputDecorator } from '@angular/core';
 import { OutputDecorator } from '@angular/core';
 import { Output } from '@angular/core';
 import { Input } from '@angular/core';
+import { Category } from '../category';
+import { MatSelectModule } from '@angular/material/select';
+import { CategoryService } from '../category.service';
+import { CommonModule } from '@angular/common';
+import { CategoryScale } from 'chart.js';
 
 export interface DialogData {
     row: {
@@ -143,7 +148,7 @@ export class ExpensesTableComponent {
     templateUrl: 'expense-dialog.html',
     styleUrls: ['./expense-dialog.component.scss'],
     standalone: true,
-    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    imports: [CommonModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
     providers: [MatDatepickerModule, MatNativeDateModule, {
         provide: MAT_DATE_LOCALE, useValue: 'en-GB'
     }]
@@ -151,18 +156,22 @@ export class ExpensesTableComponent {
 
 export class ExpenseDialog {
     @Output() refetch: EventEmitter<any> = new EventEmitter();
-    updated = {
+    updated: any = {
         name: "",
         value: 0,
         date: new Date(""),
-        category: ""
+        category: "",
     };
+
+    categories: Category[];
+    selected: Category;
 
     buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<ExpenseDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
         private expenseService: ExpenseService,
+        private categoryService: CategoryService,
     ) {
         this.updated = { ...data.row }
     }
@@ -172,9 +181,24 @@ export class ExpenseDialog {
         this.dialogRef.close();
     }
 
+    ngOnInit(): void {
+        this.getCategories();
+    }
+
     update(start_data: any) {
+        console.log(this.selected);
+        this.updated["category_id"] = this.selected;
+        console.log(this.updated);
         this.expenseService.updateExpense(this.updated)
             .subscribe(() => this.refetch.emit())
+    }
+
+    getCategories(): void {
+        this.categoryService.getCategories()
+            .subscribe((categories: any) => {
+                this.categories = categories;
+            }
+            );
     }
 }
 
@@ -183,24 +207,29 @@ export class ExpenseDialog {
     templateUrl: 'expense-add-dialog.html',
     styleUrls: ['./expense-dialog.component.scss'],
     standalone: true,
-    imports: [MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
+    imports: [CommonModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, FormsModule, MatInputModule, MatButtonModule, MatDialogModule],
     providers: [MatDatepickerModule, MatNativeDateModule, {
         provide: MAT_DATE_LOCALE, useValue: 'en-GB'
     }]
 })
 export class ExpenseAddDialog {
     @Output() refetch: EventEmitter<any> = new EventEmitter();
-    updated = {
+    updated: any = {
         name: "",
         value: 0,
         date: new Date(""),
-        category_id: 0,
+        category: "",
     };
+
+    categories: Category[];
+    selected: Category;
+
     buttonText = "Save";
     constructor(
         public dialogRef: MatDialogRef<ExpenseDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
         private expenseService: ExpenseService,
+        private categoryService: CategoryService,
     ) {
     }
 
@@ -208,9 +237,22 @@ export class ExpenseAddDialog {
         this.dialogRef.close();
     }
 
+    ngOnInit(): void {
+        this.getCategories();
+    }
+
     create() {
+        this.updated["category_id"] = this.selected;
         this.expenseService.createExpense(this.updated)
             .subscribe(() => this.refetch.emit())
+    }
+
+    getCategories(): void {
+        this.categoryService.getCategories()
+            .subscribe((categories: any) => {
+                this.categories = categories;
+            }
+            );
     }
 }
 
