@@ -62,6 +62,11 @@ export class BarChartComponent implements OnInit {
           legend: {
             data: ['Expense', 'Income'],
             align: 'left',
+            show: true,
+            textStyle: {
+              color: 'ffffff',
+              fontSize: 16,
+            }
           },
           tooltip: {},
           xAxis: {
@@ -120,6 +125,11 @@ export class BarChartComponent implements OnInit {
                 legend: {
                   data: ['Income - expense'],
                   align: 'left',
+                  show: true,
+                   textStyle: {
+                    color: 'ffffff',
+                    fontSize: 16,
+            }
                 },
                 tooltip: {},
                 xAxis: {
