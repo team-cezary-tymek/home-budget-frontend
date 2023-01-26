@@ -10,3 +10,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-form-field-appearance-outline:not(.mat-focused) .mat-form-field-label {
   margin-top: 0.25em;
 }
+
+.table-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -20px;
+    margin-top: 20px;
+}

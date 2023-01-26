@@ -1,5 +1,7 @@
+<div class="table-nav">
 <h1>Incomes</h1>
 <button mat-raised-button color="primary" (click)="openDialog2()">Add income</button>
+</div>
 <br>
 
 <table mat-table #table [dataSource]="incomes" matSort (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
