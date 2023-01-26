@@ -71,9 +71,25 @@ export class BarChartComponent implements OnInit {
             splitLine: {
               show: false,
             },
+            nameTextStyle: {
+              color: 'white',
+              fontSize: 16
+            },
+            axisLabel: {
+              fontSize: 16,
+              color: '#ffffff'
+            }
           },
           yAxis: {
-            name: 'Cost'
+            name: 'Cost',
+            axisLabel: {
+              fontSize: 14,
+              color: 'ffffff'
+            },
+            nameTextStyle: {
+              color: 'white',
+              fontSize: 16
+            }
           },
           series: [
             {
@@ -113,9 +129,25 @@ export class BarChartComponent implements OnInit {
                   splitLine: {
                     show: false,
                   },
+                  nameTextStyle: {
+                    color: 'white',
+                    fontSize: 16,
+                  },
+                  axisLabel: {
+                    color: 'ffffff',
+                    fontSize: 16
+                  }
                 },
                 yAxis: {
-                  name: 'Cost'
+                  name: 'Cost',
+                  axisLabel: {
+                    color: 'ffffff',
+                    fontSize: 14
+                  },
+                  nameTextStyle: {
+                    color: 'white',
+                    fontSize: 16
+                  }
                 },
                 series: [
                   {
