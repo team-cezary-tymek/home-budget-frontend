@@ -1,2 +1,10 @@
 <h1>Chart comparising percentege of each expense over all time</h1>
+<mat-form-field>
+    <mat-select placeholder="Select month and year" [(ngModel)]="selectedMonthAndYear">
+      <mat-option *ngFor="let monthAndYear of availableMonthsAndYears" [value]="monthAndYear">
+        {{ monthAndYear }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 <div #chart echarts [options]="pieChartOptions" [autoResize]="true" [loading]="pieChartLoading"></div>

@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CategoryService } from '../category.service';
 import { Observable, of } from 'rxjs';
+import { ExpenseService } from '../expense.service';
 
 export interface DialogData {
     row: {
