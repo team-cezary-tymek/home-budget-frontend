@@ -114,6 +114,7 @@ export class ExpensesTableComponent {
 
         dialogRef.afterClosed().subscribe(result => {
             this.name = result;
+            this.getExpenses();
         });
     }
     openDialog2(): void {
@@ -124,6 +125,7 @@ export class ExpensesTableComponent {
 
         dialogRef.afterClosed().subscribe(result => {
             this.name = result;
+            this.getExpenses();
         });
     }
 

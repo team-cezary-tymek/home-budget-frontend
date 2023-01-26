@@ -27,10 +27,11 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatSelectModule } from '@angular/material/select';
 import { CategoryTableComponent } from './category-table/category-table.component';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -69,7 +70,8 @@ import { CategoryTableComponent } from './category-table/category-table.componen
         }),
         MatSelectModule
     ],
-    providers: [MatDatepickerModule, MatNativeDateModule, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+    providers: [MatDatepickerModule, MatNativeDateModule, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+      ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
