@@ -37,6 +37,13 @@ export class ExpenseService {
         );
     }
 
+    deleteExpense(data: any): Observable<any> {
+        return this.http.delete(`${this.expensesUrl}/${data.id}`, this.httpOptions).pipe(
+            tap(_ => console.log("delete")),
+            catchError(this.handleError<any>('deleteExpense'))
+        );
+    }
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 

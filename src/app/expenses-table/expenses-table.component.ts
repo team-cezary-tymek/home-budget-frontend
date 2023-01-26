@@ -77,6 +77,13 @@ export class ExpensesTableComponent {
         console.log(this.expenses);
     }
 
+    delete(data: any): void {
+        this.expenseService.deleteExpense(data)
+            .subscribe(() => {
+                this.getExpenses();
+            })
+    }
+
     displayedColumns: string[] = ['id', 'name', 'category', 'value', 'date', 'edit', 'delete'];
     buttonText = 'Save';
 
