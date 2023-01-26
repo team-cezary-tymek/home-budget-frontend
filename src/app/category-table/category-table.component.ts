@@ -95,6 +95,7 @@ export class CategoryTableComponent {
 
         dialogRef.afterClosed().subscribe(result => {
             this.name = result;
+            this.getCategories();
         });
     }
 
@@ -107,6 +108,7 @@ export class CategoryTableComponent {
 
         dialogRef.afterClosed().subscribe(result => {
             this.name = result;
+            this.getCategories();
         });
     }
 }
