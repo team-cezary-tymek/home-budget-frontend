@@ -65,7 +65,7 @@ export class ExpensesTableComponent {
         console.log(this.expenses);
     }
 
-    displayedColumns: string[] = ['id', 'name', 'category', 'value', 'date', 'edit'];
+    displayedColumns: string[] = ['id', 'name', 'category', 'value', 'date', 'edit', 'delete'];
     buttonText = 'Save';
 
     constructor(private _liveAnnouncer: LiveAnnouncer,

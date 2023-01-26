@@ -29,6 +29,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
         RouterModule,
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts')
-        })
+        }),
+        MatSelectModule
     ],
     providers: [MatDatepickerModule, MatNativeDateModule, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
     bootstrap: [AppComponent]

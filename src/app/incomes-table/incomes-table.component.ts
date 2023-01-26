@@ -25,7 +25,7 @@ export interface DialogData {
     styleUrls: ['./incomes-table.component.scss']
 })
 export class IncomesTableComponent {
-    displayedColumns: string[] = ['id', 'name', 'value', 'date', 'edit'];
+    displayedColumns: string[] = ['id', 'name', 'value', 'date', 'edit', 'delete'];
     incomes = new MatTableDataSource(INCOMES);
     name?: string;
     value?: number;
