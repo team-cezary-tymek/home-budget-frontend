@@ -69,6 +69,13 @@ export class IncomesTableComponent {
         console.log(this.incomes);
     }
 
+    delete(data: any): void {
+        this.incomeService.deleteIncome(data)
+            .subscribe(() => {
+                this.getIncomes();
+            })
+    }
+
     displayedColumns: string[] = ['id', 'name', 'value', 'date', 'edit', 'delete'];
     name?: string;
     value?: number;

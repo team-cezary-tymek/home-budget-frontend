@@ -37,6 +37,13 @@ updateIncome(data: any): Observable<any> {
   );
 }
 
+deleteIncome(data: any): Observable<any> {
+  return this.http.delete(`${this.incomesUrl}/${data.id}`, this.httpOptions).pipe(
+    tap(_ => console.log("delete")),
+    catchError(this.handleError<any>('deleteIncome'))
+  );
+}
+
 private handleError<T>(operation = 'operation', result?: T) {
   return (error: any): Observable<T> => {
 
